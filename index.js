@@ -3495,13 +3495,20 @@ globalThis.memory_intercept_messages = function (chat, _contextSize, _abort, typ
     if (!chat_enabled()) return;   // if memory disabled, do nothing
     if (!get_settings('exclude_messages_after_threshold')) return  // if not excluding any messages, do nothing
     refresh_memory()
-
+    
     for (let i = 0; i < chat.length; i++) {
-        if (chat[i].mes.startsWith('Tracker:\n```json'))
+        if (chat[i].mes.startsWith('Tracker:\n```json') && chat[i-1].is_user)
         {
             let msgContent = chat[i].mes;
-            chat[i - 1].mes = chat[i - 1].mes + '\n' + msgContent;
-            chat.splice(i, 1);
+            for (let j = i; j == 0; j--) {
+                if (chat[j - 1].is_user) {
+                    msgContent = chat[j - 1].mes + '\n\n' + '### The following is the last Tracker JSON for my reference. DO NOT WRITE THIS IN THE OUTPUT.\n' + msgContent;
+                    chat.splice(j, 1);
+                    break;
+                }
+            }
+            //chat[i - 1].mes = chat[i - 1].mes + '\n' + msgContent;
+            //chat.splice(i, 1);
             break;
         }
     }
