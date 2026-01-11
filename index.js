@@ -3504,7 +3504,7 @@ globalThis.memory_intercept_messages = function (chat, _contextSize, _abort, typ
 
     // Remove any messages that have summaries injected
     for (let i=start; i >= 0; i--) {
-        delete chat[i].extra.ignore_formatting
+        delete chat[i]?.extra?.ignore_formatting
         let message = chat[i]
         let lagging = get_data(message, 'lagging')  // The message should be kept
         chat[i] = structuredClone(chat[i])  // keep changes temporary for this generation
