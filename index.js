@@ -3503,11 +3503,12 @@ globalThis.memory_intercept_messages = function (chat, _contextSize, _abort, typ
             for (let j = i; j != 0; j--) {
                 if (chat[j - 1].is_user) {
                     chat[j - 1].mes = chat[j - 1].mes + '\n\n' + '### The following is the last Tracker JSON for my reference. DO NOT WRITE THIS IN THE OUTPUT.\n' + msgContent;
-                    chat.splice(j, 1);
+                    chat.splice(i, 1);
                     break;
                 }
             }
-            
+            //chat[i - 1].mes = chat[i - 1].mes + '\n' + msgContent;
+            //chat.splice(i, 1);
             break;
         }
     }
