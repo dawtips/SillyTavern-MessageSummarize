@@ -3499,7 +3499,7 @@ globalThis.memory_intercept_messages = function (chat, _contextSize, _abort, typ
     for (let i = 0; i < chat.length; i++) {
         if (chat[i].mes.startsWith('Tracker:\n```json'))
         {
-            var msgContent = chat[i].mes;
+            let msgContent = chat[i].mes;
             chat[i - 1].mes = chat[i - 1].mes + '\n' + msgContent;
             chat.splice(i, 1);
             break;
