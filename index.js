@@ -3496,6 +3496,16 @@ globalThis.memory_intercept_messages = function (chat, _contextSize, _abort, typ
     if (!get_settings('exclude_messages_after_threshold')) return  // if not excluding any messages, do nothing
     refresh_memory()
 
+    for (let i = 0; i < chat.length; i++) {
+        if (chat[i].mes.startsWith('Tracker:\n```json'))
+        {
+            var msgContent = chat[i].mes;
+            chat[i - 1].mes = chat[i - 1].mes + '\n' + msgContent;
+            chat.splice(i, 1);
+            break;
+        }
+    }
+
     let start = chat.length-1
     if (type === 'continue') start--  // if a continue, keep the most recent message
 
