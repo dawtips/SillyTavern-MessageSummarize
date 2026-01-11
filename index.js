@@ -3500,7 +3500,7 @@ globalThis.memory_intercept_messages = function (chat, _contextSize, _abort, typ
         if (chat[i].mes.startsWith('Tracker:\n```json'))
         {
             let msgContent = chat[i].mes;
-            for (let j = i; j == 0; j--) {
+            for (let j = i; j != 0; j--) {
                 if (chat[j - 1].is_user) {
                     msgContent = chat[j - 1].mes + '\n\n' + '### The following is the last Tracker JSON for my reference. DO NOT WRITE THIS IN THE OUTPUT.\n' + msgContent;
                     chat.splice(j, 1);
