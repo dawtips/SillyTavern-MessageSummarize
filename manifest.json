@@ -1,6 +1,6 @@
 {
     "display_name": "qvink_memory",
-    "loading_order": 1,
+    "loading_order": 10,
     "requires": [],
     "optional": [],
     "minimum_client_version": "1.13.2",
