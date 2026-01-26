@@ -3495,23 +3495,6 @@ globalThis.memory_intercept_messages = function (chat, _contextSize, _abort, typ
     if (!chat_enabled()) return;   // if memory disabled, do nothing
     if (!get_settings('exclude_messages_after_threshold')) return  // if not excluding any messages, do nothing
     refresh_memory()
-    
-    // for (let i = 0; i < chat.length; i++) {
-    //     if (chat[i].mes.startsWith('Tracker:\n```json'))
-    //     {
-    //         let msgContent = chat[i].mes;
-    //         for (let j = i; j != 0; j--) {
-    //             if (chat[j - 1].is_user) {
-    //                 chat[j - 1].mes = chat[j - 1].mes + '\n\n' + '### The following is the last Tracker JSON for my reference. DO NOT WRITE THIS IN THE OUTPUT.\n' + msgContent;
-    //                 chat.splice(i, 1);
-    //                 break;
-    //             }
-    //         }
-    //         //chat[i - 1].mes = chat[i - 1].mes + '\n' + msgContent;
-    //         //chat.splice(i, 1);
-    //         break;
-    //     }
-    // }
 
     let start = chat.length-1
     if (type === 'continue') start--  // if a continue, keep the most recent message
@@ -3521,8 +3504,7 @@ globalThis.memory_intercept_messages = function (chat, _contextSize, _abort, typ
 
     // Remove any messages that have summaries injected
     for (let i=start; i >= 0; i--) {
-        chat[i].extra = chat[i].extra ?? {};
-        delete chat[i].extra?.ignore_formatting
+        delete chat[i].extra.ignore_formatting
         let message = chat[i]
         let lagging = get_data(message, 'lagging')  // The message should be kept
         chat[i] = structuredClone(chat[i])  // keep changes temporary for this generation
