@@ -2944,7 +2944,7 @@ class SummaryPromptEditInterface {
             if (m.is_user) {
                 include_message = macro.user_messages
                 include_summary = macro.user_summaries
-            } else if (m.is_system || m.is_thoughts) {
+            } else if ((m.is_system && m.is_user) || m.is_thoughts) {
                 include_message = false;
                 include_summary = false
             } else {  // otherwise it's a bot message
